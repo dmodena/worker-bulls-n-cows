@@ -1,4 +1,4 @@
-Web Workers
+Worker Bulls and Cows
 ---
 
-A test with Web Workers API.
+An implementation of the game Bulls and Cows using Web Workers API.
