@@ -4,8 +4,10 @@
     const startGameBtn = document.getElementById('startGameBtn');
     const guessBtn = document.getElementById('guessBtn');
     const giveUpBtn = document.getElementById('giveUpBtn');
+    const resultInput = document.getElementById('resultInput');
+    const resultTextArea = document.getElementById('resultTextArea');
 
-    
+    let guesses = 0;
 
     const startGame = function() {
         worker.postMessage({ fn: 'startGame' });
@@ -22,7 +24,18 @@
     }
 
     worker.onmessage = function(message) {
-        console.log(message.data);
+        switch (message.data.fn) {
+            case 'startGame':
+                resultInput.value = message.data.val;
+                break;
+            case 'giveUp':
+                resultInput.value = message.data.val;
+                break;
+            case 'guess':
+                resultTextArea.value += `${++guesses}. ${message.data.val}\n`
+            default:
+                break;
+        }
     }
 
     startGameBtn.addEventListener('click', startGame);
