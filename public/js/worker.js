@@ -1,4 +1,6 @@
-const secretNumber = ['3', '2', '7', '4'];
+importScripts('./game.js');
+
+let game;
 
 onmessage = function(message) {
     handleMessage(message)
@@ -22,27 +24,20 @@ handleMessage = function(message) {
 }
 
 startGame = function() {
+    game = new Game();
+
     postMessage({ fn: 'startGame', val: ['Game started!'] });
 }
 
 guess = function(guessedNumber) {
     digits = guessedNumber.toString().split('');
-    result = [];
-
-    digits.forEach((digit, idx) => {
-        if (digit == secretNumber[idx]) {
-            result.push(1);
-        }
-        else if (secretNumber.includes(digit)) {
-            result.push(0);
-        }
-    });
-
-    result.sort().reverse();
+    let result = game.guess(digits);
 
     postMessage({ fn: 'guess', val: result });
 }
 
 giveUp = function() {
-    postMessage({ fn: 'giveUp', val: [`You've given up!`] });
+    let result = game.giveUp();
+
+    postMessage({ fn: 'giveUp', val: [`Secret number was: ${result}`] });
 }

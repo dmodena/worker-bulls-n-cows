@@ -1,4 +1,4 @@
-module.exports = class Game {
+class Game {
     #secretNumber;
 
     constructor() {
@@ -6,14 +6,17 @@ module.exports = class Game {
     }
 
     guess(numberGuessed) {
+        console.log('numberGuessed', numberGuessed);
         let result = [];
 
         numberGuessed.forEach((n, i) => {
-            if (n == this.#secretNumber[i])
+            if (n == this.#secretNumber[i]) {
                 result.push(1);
-            else if (this.#secretNumber.includes(n))
+            }
+            else if (this.#secretNumber.includes(n)) {
                 result.push(0);
-        })
+            }
+        });
 
         result.sort().reverse();
         return result;

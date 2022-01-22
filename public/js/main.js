@@ -23,7 +23,7 @@
         worker.postMessage({ fn: 'giveUp' });
     }
 
-    worker.onmessage = function(message) {
+    const receiveFromWorker = function(message) {
         switch (message.data.fn) {
             case 'startGame':
                 resultInput.value = message.data.val;
@@ -38,6 +38,7 @@
         }
     }
 
+    worker.onmessage = receiveFromWorker;
     startGameBtn.addEventListener('click', startGame);
     guessBtn.addEventListener('click', guessNumber);
     giveUpBtn.addEventListener('click', giveUp);
