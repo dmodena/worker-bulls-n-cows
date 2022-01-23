@@ -89,6 +89,11 @@
     }
 
     const startGame = function() {
+        historyList.innerHTML = '';
+        guessInput.value = '';
+        guesses = 0;
+        updateInputView();
+
         worker.postMessage({ fn: 'startGame' });
     }
 
