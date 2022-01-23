@@ -32,6 +32,10 @@
         return number.toString().split('').map(s => parseInt(s));
     }
 
+    const updateStatus = function(message) {
+        statusInput.value = message;
+    }
+
     const updateHistory = function(guessResult) {
         let oldHistory = historyList.innerHTML;
         let guessAttempt = guesses < 10
@@ -39,6 +43,7 @@
             : guesses.toString();
 
         let result = `<li class="list-group-item">${guessAttempt}. ${lastGuess.join('')}: `;
+        let bullsCount = 0;
 
         if (guessResult.length == 0) {
             result += noneIcon;
@@ -48,6 +53,9 @@
             guessResult.filter(n => n == 0).forEach(n => result += cowIcon);
             result += "</li>";
         }
+
+        if (guessResult.filter(n => n == 1).length == 4)
+            updateStatus(`You won! The secret number was: ${lastGuess.join('')}`);
 
         historyList.innerHTML = result + oldHistory;
     }
@@ -89,6 +97,10 @@
         guesses += 1;
         lastGuess = guessedNumber;
 
+        updateStatus(`Last guess: ${guessedNumber.join('')}`);
+        guessInput.value = '';
+        updateInputView();
+
         worker.postMessage({ fn: 'guess', val: guessedNumber });
     }
 
@@ -99,10 +111,10 @@
     const receiveFromWorker = function(message) {
         switch (message.data.fn) {
             case 'startGame':
-                statusInput.value = message.data.val;
+                updateStatus(message.data.val);
                 break;
             case 'giveUp':
-                statusInput.value = message.data.val;
+                updateStatus(message.data.val);
                 break;
             case 'guess':
                 updateHistory(message.data.val);

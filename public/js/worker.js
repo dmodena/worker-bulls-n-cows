@@ -38,5 +38,5 @@ guess = function(guessedNumber) {
 giveUp = function() {
     let result = game.giveUp();
 
-    postMessage({ fn: 'giveUp', val: [`Secret number was: ${result}`] });
+    postMessage({ fn: 'giveUp', val: [`Secret number was: ${result.join('')}`] });
 }
