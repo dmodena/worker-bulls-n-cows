@@ -32,7 +32,8 @@
         return number.toString().split('').map(s => parseInt(s));
     }
 
-    const createHistoryItem = function(guessResult) {
+    const updateHistory = function(guessResult) {
+        let oldHistory = historyList.innerHTML;
         let guessAttempt = guesses < 10
             ? "0" + guesses.toString()
             : guesses.toString();
@@ -41,14 +42,14 @@
 
         if (guessResult.length == 0) {
             result += noneIcon;
-            return result;
+        }
+        else {
+            guessResult.filter(n => n == 1).forEach(n => result += bullIcon);
+            guessResult.filter(n => n == 0).forEach(n => result += cowIcon);
+            result += "</li>";
         }
 
-        guessResult.filter(n => n == 1).forEach(n => result += bullIcon);
-        guessResult.filter(n => n == 0).forEach(n => result += cowIcon);
-        result += "</li>";
-
-        return result;
+        historyList.innerHTML = result + oldHistory;
     }
 
     const updateInputView = function() {
@@ -104,8 +105,7 @@
                 statusInput.value = message.data.val;
                 break;
             case 'guess':
-                let oldHistory = historyList.innerHTML;
-                historyList.innerHTML = createHistoryItem(message.data.val) + oldHistory;
+                updateHistory(message.data.val);
                 break;
             default:
                 break;
