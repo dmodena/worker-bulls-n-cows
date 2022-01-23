@@ -6,15 +6,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Worker Bulls and Cows</title>
   <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="stylesheet" href="vendor/bootstrap-icons-1.7.2/bootstrap-icons.css">
+  <link rel="stylesheet" href="vendor/bootstrap-5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-  <h1>An implementation of the game Bulls and Cows using Web Workers API</h1>
-  <input type="number" name="guessInput" id="guessInput">
-  <button id="startGameBtn">Start Game</button>
-  <button id="guessBtn">Guess</button>
-  <button id="giveUpBtn">Give Up</button>
-  <input type="text" id="resultInput" disabled>
-  <textarea id="resultTextArea" disabled></textarea>
+  <div class="container">
+    <div class="row mt-3">
+      <h2 class="text-center">Bulls and Cows</h2>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">History</div>
+          <div style="height: 200px; overflow-y: scroll;">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">03. 8901 <i class="bi bi-dash-lg"></i></li>
+              <li class="list-group-item">02. 4567 <i class="bi bi-plus-circle"></i> <i class="bi bi-dash-circle"></i>
+              </li>
+              <li class="list-group-item">01. 0123 <i class="bi bi-plus-circle"></i> <i class="bi bi-plus-circle"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-3">
+        <input type="text" class="form-control" value="1" disabled>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control" value="2" disabled>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control" value="3" disabled>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control" value="" disabled>
+      </div>
+      <input type="hidden" name="guessInput" id="guessInput">
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <label for="statusInput">Status</label>
+        <input type="text" class="form-control" id="statusInput" disabled>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="d-grid gap-2 col-6">
+        <button id="startGameBtn" class="btn btn-outline-primary" type="button">Start Game</button>
+      </div>
+      <div class="d-grid gap-2 col-6">
+        <button id="giveUpBtn" class="btn btn-outline-danger" type="button">Give Up</button>
+      </div>
+    </div>
+    <hr>
+    <div class="row mt-3">
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">7</button>
+      </div>
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">8</button>
+      </div>
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">9</button>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">4</button>
+      </div>
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">5</button>
+      </div>
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">6</button>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">1</button>
+      </div>
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">2</button>
+      </div>
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">3</button>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="d-grid col-4">
+        <button class="btn btn-outline-secondary" type="button">0</button>
+      </div>
+      <div class="d-grid col-8">
+        <button class="btn btn-outline-danger" type="button"><i class="bi bi-arrow-left"></i></button>
+      </div>
+    </div>
+    <div class="row mt-2 mb-5">
+      <div class="d-grid col-12">
+        <button id="guessBtn" class="btn btn-outline-success" type="button"><i class="bi bi-check2"></i></button>
+      </div>
+    </div>
+  </div>
   <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

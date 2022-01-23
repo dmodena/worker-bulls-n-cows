@@ -4,7 +4,7 @@
     const startGameBtn = document.getElementById('startGameBtn');
     const guessBtn = document.getElementById('guessBtn');
     const giveUpBtn = document.getElementById('giveUpBtn');
-    const resultInput = document.getElementById('resultInput');
+    const statusInput = document.getElementById('statusInput');
     const resultTextArea = document.getElementById('resultTextArea');
 
     let guesses = 0;
@@ -33,10 +33,10 @@
     const receiveFromWorker = function(message) {
         switch (message.data.fn) {
             case 'startGame':
-                resultInput.value = message.data.val;
+                statusInput.value = message.data.val;
                 break;
             case 'giveUp':
-                resultInput.value = message.data.val;
+                statusInput.value = message.data.val;
                 break;
             case 'guess':
                 resultTextArea.value += `${++guesses}. ${message.data.val}\n`
