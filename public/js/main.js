@@ -9,14 +9,21 @@
 
     let guesses = 0;
 
+    const getDigits = function(number) {
+        if (isNaN(number))
+            return [];
+
+        return number.toString().split('').map(s => parseInt(s));
+    }
+
     const startGame = function() {
         worker.postMessage({ fn: 'startGame' });
     }
 
     const guessNumber = function() {
-        const guessedNumber = guessInput.value;
-        const data = { fn: 'guess', val: [guessedNumber] };
-        worker.postMessage(data);
+        const guessedNumber = getDigits(guessInput.value);
+
+        worker.postMessage({ fn: 'guess', val: guessedNumber });
     }
 
     const giveUp = function() {

@@ -30,8 +30,7 @@ startGame = function() {
 }
 
 guess = function(guessedNumber) {
-    digits = guessedNumber.toString().split('');
-    let result = game.guess(digits);
+    let result = game.guess(guessedNumber);
 
     postMessage({ fn: 'guess', val: result });
 }

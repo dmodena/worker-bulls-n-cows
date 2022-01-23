@@ -5,15 +5,20 @@ class Game {
         this.#secretNumber = this.#generateSecretNumber();
     }
 
-    guess(numberGuessed) {
-        console.log('numberGuessed', numberGuessed);
-        let result = [];
+    guess(guessedNumber) {
+        return this.checkGuess(guessedNumber, this.#secretNumber);
+    }
 
-        numberGuessed.forEach((n, i) => {
-            if (n == this.#secretNumber[i]) {
+    checkGuess(guessedNumber, secretNumber) {
+        if (guessedNumber.length != secretNumber.length)
+            return [];
+
+        let result = [];
+        guessedNumber.forEach((n, i) => {
+            if (n == secretNumber[i]) {
                 result.push(1);
             }
-            else if (this.#secretNumber.includes(n)) {
+            else if (secretNumber.includes(n)) {
                 result.push(0);
             }
         });
