@@ -19,6 +19,9 @@
     const statusInput = document.getElementById('statusInput');
     const historyList = document.getElementById('historyList');
 
+    const bullIcon = `<i class="bi bi-plus-circle"></i> `
+    const cowIcon = `<i class="bi bi-dash-circle"></i> `
+    const noneIcon = `<i class="bi bi-dash-lg"></i> `
     let guesses = 0;
     let lastGuess = [];
 
@@ -34,7 +37,18 @@
             ? "0" + guesses.toString()
             : guesses.toString();
 
-        return `<li class="list-group-item">${guessAttempt}. ${lastGuess} - ${guessResult}</li>`;
+        let result = `<li class="list-group-item">${guessAttempt}. ${lastGuess.join('')}: `;
+
+        if (guessResult.length == 0) {
+            result += noneIcon;
+            return result;
+        }
+
+        guessResult.filter(n => n == 1).forEach(n => result += bullIcon);
+        guessResult.filter(n => n == 0).forEach(n => result += cowIcon);
+        result += "</li>";
+
+        return result;
     }
 
     const updateInputView = function() {
@@ -71,6 +85,7 @@
 
     const guessNumber = function() {
         const guessedNumber = getDigits(guessInput.value);
+        guesses += 1;
         lastGuess = guessedNumber;
 
         worker.postMessage({ fn: 'guess', val: guessedNumber });
@@ -89,7 +104,9 @@
                 statusInput.value = message.data.val;
                 break;
             case 'guess':
-                historyList.value = createHistoryItem(message.data.val) + historyList.value;
+                let oldHistory = historyList.innerHTML;
+                historyList.innerHTML = createHistoryItem(message.data.val) + oldHistory;
+                break;
             default:
                 break;
         }
